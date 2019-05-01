@@ -1,5 +1,5 @@
 module "vpc" {
-  source = "./modules/vpc"
+  source = "git::ssh://git@github.com/markthub/app-modules.git//vpc?ref=master"
   azs    = "${var.aws_azs}"
 
   tags = {
@@ -11,12 +11,12 @@ module "vpc" {
 }
 
 module "ssh_key" {
-  source   = "./modules/key"
+  source   = "git::ssh://git@github.com/markthub/app-modules.git//key?ref=master"
   key_name = "${terraform.workspace}-key-cluster"
 }
 
 module "eks" {
-  source    = "./modules/eks"
+  source    = "git::ssh://git@github.com/markthub/app-modules.git//eks?ref=master"
   name      = "eks-admin"
   namespace = "kube-system"
 
@@ -36,19 +36,19 @@ module "eks" {
 }
 
 module "helm-tiller" {
-  source    = "./modules/helm-tiller"
+  source    = "git::ssh://git@github.com/markthub/app-modules.git//helm-tiller?ref=master"
   name      = "tiller"
   namespace = "kube-system"
 }
 
 module "dashboard" {
-  source    = "./modules/dashboard"
+  source    = "git::ssh://git@github.com/markthub/app-modules.git//dashboard?ref=master"
   name      = "kubernetes-dashboard"
   namespace = "kube-system"
 }
 
 module "cluster-autoscaler" {
-  source    = "./modules/autoscaler"
+  source    = "git::ssh://git@github.com/markthub/app-modules.git//autoscaler?ref=master"
   name      = "cluster-autoscaler"
   namespace = "kube-system"
 
@@ -57,13 +57,13 @@ module "cluster-autoscaler" {
 }
 
 module "prometheus" {
-  source    = "./modules/prometheus"
+  source    = "git::ssh://git@github.com/markthub/app-modules.git//prometheus?ref=master"
   name      = "prometheus"
   namespace = "kube-system"
 }
 
 module "grafana" {
-  source    = "./modules/grafana"
+  source    = "git::ssh://git@github.com/markthub/app-modules.git//grafana?ref=master"
   name      = "grafana"
   namespace = "kube-system"
 }

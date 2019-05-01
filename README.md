@@ -17,6 +17,7 @@ Follow the steps below:
 1. Clone the repository
 2. Adjust Terraform state to the appropiate bucket+key, see `terraform/backend.tf`
 3. Start your docker environment: `$ make build` or `$ make pull` will get the container needed in order to run manage the infrastructure.
+    * Remember that you need to have the private key to access the modules on GitHub
 4. Run the Docker app but first configure the following environmental variables:
 
 ```

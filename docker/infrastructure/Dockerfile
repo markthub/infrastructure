@@ -13,6 +13,7 @@ RUN set -x && \
 RUN apk add wget && \
   apk add unzip && \
   apk add make && \
+  apk add git && \
   apk add openssh && \
   apk -Uuv add groff less python py-pip && \
   apk add --no-cache gnupg && \
@@ -53,6 +54,14 @@ RUN curl -o helm.tar.gz https://storage.googleapis.com/kubernetes-helm/helm-${HE
   rm -rf linux-amd64/ && \
   chmod +x /usr/local/bin/helm && \
   helm version --client
+
+# Copy private key
+COPY docker/infrastructure/assets/id_rsa_git /root/.ssh/id_rsa
+COPY docker/infrastructure/assets/id_rsa_git.pub /root/.ssh/id_rsa.pub
+
+# Change permissions
+RUN chmod 0600 /root/.ssh/id_rsa && \
+  chmod 0600 /root/.ssh/id_rsa.pub
 
 # Set workdir to infrastructure directory
 WORKDIR /var/infrastructure
